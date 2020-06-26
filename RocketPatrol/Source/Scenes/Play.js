@@ -100,6 +100,7 @@ class Play extends Phaser.Scene
         (
             Phaser.Input.Keyboard.KeyCodes.RIGHT
         );
+        keyM = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M);
 
         // animation config for ship explosions
         this.anims.create
@@ -131,7 +132,7 @@ class Play extends Phaser.Scene
             align: "right",
             padding: {top: 5, bottom: 5},
             fixedWidth: 100
-        }
+        };
         this.scoreLeft = this.add.text(69, 54, this.p1Score, scoreConfig);
 
         // game over flag
@@ -140,7 +141,7 @@ class Play extends Phaser.Scene
         scoreConfig.fixedWidth = 0;
         this.clock = this.time.delayedCall
         (
-            60000,
+            game.settings.gameTimer,
             () =>
             {
                 this.add.text
@@ -155,7 +156,7 @@ class Play extends Phaser.Scene
                 (
                     game.config.width/2,
                     game.config.height/2 + 64,
-                    "(F)ire to Restart",
+                    "(F)ire to Restart or (M) for Menu",
                     scoreConfig
                 ).setOrigin(0.5);
 
@@ -173,6 +174,11 @@ class Play extends Phaser.Scene
         if(this.gameOver && Phaser.Input.Keyboard.JustDown(keyF))
         {
             this.scene.restart(this.p1Score);
+        }
+
+        if(this.gameOver && Phaser.Input.Keyboard.JustDown(keyM))
+        {
+            this.scene.start("menuScene");
         }
 
         if(!this.gameOver)
@@ -242,6 +248,7 @@ class Play extends Phaser.Scene
         // score increment and repaint
         this.p1Score += ship.points;
         this.scoreLeft.text = this.p1Score;
+        this.sound.play("sfx_explosion");
     } // end shipExplode(ship)
 } // end class Play
 
