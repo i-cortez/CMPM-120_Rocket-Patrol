@@ -1,2 +1,2 @@
-# CMPM-120
-Repository for assignments given in the Summer 2020 offering of CMPM 120.
+# CMPM-120 Rocket Patrol Tutorial
+Repository for the Rocket Patrol tutorial assignment.
